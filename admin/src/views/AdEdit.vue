@@ -13,8 +13,8 @@
 							<el-input v-model="item.url"></el-input>
 						</el-form-item>
 						<el-form-item label="图片" style="margin-top: 0.5rem;">
-							<el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false"
-							 :on-success="res => $set(item,'image',res.url)" :before-upload="beforeAvatarUpload">
+							<el-upload class="avatar-uploader" :action="uploadUrl" :show-file-list="false" :on-success="res => $set(item,'image',res.url)"
+							 :before-upload="beforeAvatarUpload" :headers="getAuthHeaders()">
 								<img v-if="item.image" :src="item.image" class="avatar">
 								<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 							</el-upload>
@@ -39,9 +39,7 @@
 		data() {
 			return {
 				model: {
-					items: {
-
-					}
+					items: []
 				},
 			}
 		},
@@ -50,12 +48,7 @@
 		},
 		methods: {
 			beforeAvatarUpload(file) {
-				// const isJPG = file.type === 'image/jpeg/png';
 				const isLt2M = file.size / 1024 / 1024 < 2;
-
-				// if (!isJPG) {
-				// 	this.$message.error('上传头像图片只能是 JPG /PNG 格式!');
-				// }
 				if (!isLt2M) {
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}

@@ -11,8 +11,8 @@
 						<el-input v-model="model.title"></el-input>
 					</el-form-item>
 					<el-form-item label="头像">
-						<el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false"
-						 :on-success="afterUpload" :before-upload="beforeAvatarUpload">
+						<el-upload class="avatar-uploader" :action="uploadUrl" :show-file-list="false" :on-success="afterUpload"
+						 :before-upload="beforeAvatarUpload" :headers="getAuthHeaders()">
 							<img v-if="model.avatar" :src="model.avatar" class="avatar">
 							<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 						</el-upload>
@@ -62,8 +62,8 @@
 								<el-input v-model="item.name"></el-input>
 							</el-form-item>
 							<el-form-item label="图标">
-								<el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false"
-								 :on-success="res => $set(item,'icon',res.url)" :before-upload="beforeAvatarUpload">
+								<el-upload class="avatar-uploader" :action="uploadUrl" :show-file-list="false" :on-success="res => $set(item,'icon',res.url)"
+								 :before-upload="beforeAvatarUpload" :headers="getAuthHeaders()">
 									<img v-if="item.icon" :src="item.icon" class="avatar">
 									<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 								</el-upload>
@@ -115,12 +115,7 @@
 				this.model.avatar = res.url
 			},
 			beforeAvatarUpload(file) {
-				// const isJPG = file.type === 'image/jpeg/png';
 				const isLt2M = file.size / 1024 / 1024 < 2;
-
-				// if (!isJPG) {
-				// 	this.$message.error('上传头像图片只能是 JPG /PNG 格式!');
-				// }
 				if (!isLt2M) {
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}

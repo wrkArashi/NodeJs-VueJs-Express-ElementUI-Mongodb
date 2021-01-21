@@ -3,6 +3,8 @@ const express = require("express")
 //app是express的实例
 const app = express()
 
+app.set('secret','efjjirenqkivncjd')
+
 app.use(require('cors')())
 app.use(express.json())
 

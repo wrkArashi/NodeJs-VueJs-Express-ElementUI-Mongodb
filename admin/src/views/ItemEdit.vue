@@ -6,8 +6,8 @@
 				<el-input v-model="model.name"></el-input>
 			</el-form-item>
 			<el-form-item label="图标">
-				<el-upload class="avatar-uploader" :action="$http.defaults.baseURL + '/upload'" :show-file-list="false" :on-success="afterUpload"
-				 :before-upload="beforeAvatarUpload">
+				<el-upload class="avatar-uploader" :action="uploadUrl" :show-file-list="false" :on-success="afterUpload"
+				 :before-upload="beforeAvatarUpload" :headers="getAuthHeaders()">
 					<img v-if="model.icon" :src="model.icon" class="avatar">
 					<i v-else class="el-icon-plus avatar-uploader-icon"></i>
 				</el-upload>
@@ -33,20 +33,15 @@
 		},
 		methods: {
 			afterUpload(res) {
-				this.$set(this.model,'icon',res.url)
+				this.$set(this.model, 'icon', res.url)
 				this.model.icon = res.url
 			},
 			beforeAvatarUpload(file) {
-				const isJPG = file.type === 'image/jpeg';
 				const isLt2M = file.size / 1024 / 1024 < 2;
-
-				if (!isJPG) {
-					this.$message.error('上传头像图片只能是 JPG 格式!');
-				}
 				if (!isLt2M) {
 					this.$message.error('上传头像图片大小不能超过 2MB!');
 				}
-				return isJPG && isLt2M;
+				return isLt2M;
 			},
 			async save() {
 				let res
@@ -65,7 +60,7 @@
 				const res = await this.$http.get(`rest/items/${this.id}`)
 				this.model = res.data
 			},
-		
+
 		},
 	}
 </script>
