@@ -1,4 +1,6 @@
-/* reset */
+@import './variables';
+
+// reset
 * {
 	box-sizing: border-box;
 	outline: none;
@@ -13,21 +15,12 @@ body {
 	font-family: arial, helvetica, sans-serif;
 	line-height: 1.2em;
 	background-color: #f1f1f1;
+	-webkit-font-smoothing: antialiased;
 }
 
 a {
 	color: #999;
 }
-
-/* color */
-$colors: ("primary":#db9e3f,
-"white":#fff,
-"light":#f9f9f9,
-"grey":#999,
-"dark-1":#343440,
-"dark":#222,
-"black":#333,
-);
 
 @each $colorKey,
 $color in $colors {
@@ -43,18 +36,9 @@ $color in $colors {
 /* text-align */
 @each $var in (left, center, right) {
 	.text-#{$var} {
-		text-align: $var;
+		text-align: $var !important;
 	}
 }
-
-/* text-size */
-$base-font-size:1rem;
-$font-sizes:(xs:0.7692, //10px
-sm:0.9231, //12px
-md:1, //13px
-lg:1.0769, //14px
-xl:1.2308, //16px
-);
 
 @each $sizeKey,
 $size in $font-sizes {
@@ -63,21 +47,23 @@ $size in $font-sizes {
 	}
 }
 
+/* with,height */
+.w-100{
+	width: 100%;
+}
+
 /* flex */
 .d-flex {
 	display: flex;
 }
 
+.flex-wrap{
+	flex-wrap: wrap;
+}
+
 .flex-column {
 	flex-direction: column;
 }
-
-$flex-jc:(start:flex-start,
-end:flex-end,
-center:center,
-between:space-between,
-around:space-around,
-);
 
 @each $key,
 $value in $flex-jc {
@@ -85,12 +71,6 @@ $value in $flex-jc {
 		justify-content: $value;
 	}
 }
-
-$flex-ai:(start:flex-start,
-end:flex-end,
-center:center,
-stretch:stretch,
-);
 
 @each $key,
 $value in $flex-ai {
@@ -106,26 +86,6 @@ $value in $flex-ai {
 .flex-grow-1 {
 	flex-grow: 1;
 }
-
-/* spacing */
-$spacing-types:(m:margin,
-p:padding);
-
-$spacing-directions:(t:top,
-r:right,
-b:bottom,
-l:left,
-);
-
-$spacing-base-size:1rem;
-
-$spacing-sizes:(0:0,
-1:0.25,
-2:0.5,
-3:1,
-4:1.5,
-5:3,
-);
 
 @each $typeKey,
 $type in $spacing-types {
@@ -169,5 +129,58 @@ $type in $spacing-types {
 
 	.#{$typeKey} {
 		#{$type}: 0;
+	}
+}
+
+/* button */
+.btn {
+	border: none;
+	border-radius: 0.1538rem;
+	font-size: map-get($font-sizes, 'sm') * $base-font-size;
+	padding: 0.2rem, 0.6rem;
+}
+
+/* nav */
+.nav {
+	display: flex;
+	
+	.nav-item {
+		border-bottom: 3px solid transparent;
+		padding-bottom: 0.2rem;
+
+		&.active {
+			color: map-get($colors, 'primary');
+			border-bottom-color:map-get($colors, 'primary');
+		}
+	}
+	&.nav-inverse{
+		.nav-item{
+           color: map-get($colors, 'white');
+		   &.active{
+	            border-bottom-color:map-get($colors, 'white');
+		   }
+		}
+	}
+}
+
+//sprite
+.sprite{
+	background: url(../images/index.png) no-repeat 0 0;
+	background-size: 28.8461rem;
+	display: inline-block;
+	&.sprite-news{
+		width: 1.7692rem;
+		height: 1.5384rem;
+		background-position:63.546% 15.517%;
+	}
+	&.sprite-story{
+		width: 1.7692rem;
+		height: 1.5384rem;
+		background-position:90.483% 15.614%;
+	}
+	&.sprite-arrow{
+		width: 0.7692rem;
+		height: 0.7692rem;
+		background-position:38.577% 52.076%;
 	}
 }

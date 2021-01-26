@@ -2,7 +2,7 @@
 	<div class="HeroEdit">
 		<h1>{{id ? '编辑':'新建'}}英雄</h1>
 		<el-form label-width="120px" @submit.native.prevent="save">
-			<el-tabs value="skills" type="border-card">
+			<el-tabs value="basic" type="border-card">
 				<el-tab-pane label="基本信息" name="basic">
 					<el-form-item label="名称">
 						<el-input v-model="model.name"></el-input>
@@ -23,16 +23,16 @@
 						</el-select>
 					</el-form-item>
 					<el-form-item label="难度">
-						<el-rate style="margin-top: 0.7rem;" :max="9" show-score v-model="model.scores.difficult"></el-rate>
+						<el-rate style="margin-top: 0.7rem;" :max="10" show-score v-model="model.scores.difficult"></el-rate>
 					</el-form-item>
 					<el-form-item label="技能">
-						<el-rate style="margin-top: 0.7rem;" :max="9" show-score v-model="model.scores.skills"></el-rate>
+						<el-rate style="margin-top: 0.7rem;" :max="10" show-score v-model="model.scores.skills"></el-rate>
 					</el-form-item>
 					<el-form-item label="攻击">
-						<el-rate style="margin-top: 0.7rem;" :max="9" show-score v-model="model.scores.attack"></el-rate>
+						<el-rate style="margin-top: 0.7rem;" :max="10" show-score v-model="model.scores.attack"></el-rate>
 					</el-form-item>
 					<el-form-item label="生存">
-						<el-rate style="margin-top: 0.7rem;" :max="9" show-score v-model="model.scores.survive"></el-rate>
+						<el-rate style="margin-top: 0.7rem;" :max="10" show-score v-model="model.scores.survive"></el-rate>
 					</el-form-item>
 					<el-form-item label="顺风出装">
 						<el-select v-model="model.items1" multiple>
