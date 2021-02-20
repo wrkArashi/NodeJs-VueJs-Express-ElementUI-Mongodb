@@ -14,6 +14,7 @@ import AdList from '../views/AdList.vue'
 import AdminUserEdit from '../views/AdminUserEdit.vue'
 import AdminUserList from '../views/AdminUserList.vue'
 import Login from '../views/Login.vue'
+import Chart from '../views/Chart.vue'
 Vue.use(Router)
 
 const router = new Router({
@@ -26,7 +27,10 @@ const router = new Router({
 		path: '/',
 		name: 'main',
 		component: Main,
-		children: [{
+		children: [ {
+			path: '/chart',
+			component:Chart
+		},{
 			path: '/categories/create',
 			component: CategoryEdit
 		}, {

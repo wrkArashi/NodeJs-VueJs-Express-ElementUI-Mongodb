@@ -27,4 +27,4 @@ const schema = new mongoose.Schema({
         description: { type: String }//描述
     }],//最佳搭档
 })
-module.exports = mongoose.model('Hero', schema)
+module.exports = mongoose.model('Hero', schema,'heroes')

@@ -31,9 +31,10 @@ module.exports = app => {
     router.get('/', async (req, res) => {
         const queryOptions = {}
         if (req.Model.modelName === 'Category') {
+            //populate:关联，取出
             queryOptions.populate = 'parent'
         }
-        const items = await req.Model.find().setOptions(queryOptions)
+        const items = await req.Model.find().setOptions(queryOptions).limit(100)
         res.send(items)
     })
 
@@ -45,6 +46,7 @@ module.exports = app => {
 
     //登陆校验中间件
     const authMiddleware = require('../../middleware/auth')
+    //通用中间件
     const resourceMiddleware = require('../../middleware/resource')
 
     app.use('/admin/api/rest/:resource', authMiddleware(), resourceMiddleware(), router)
@@ -52,7 +54,7 @@ module.exports = app => {
     //上传单文件
     const multer = require('multer')
     const upload = multer({ dest: __dirname + '/../../uploads' })
-    app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => {
+    app.post('/admin/api/upload', authMiddleware(), upload.single('file'), async (req, res) => { 
         const file = req.file
         file.url = `http://localhost:3000/uploads/${file.filename}`
         res.send(file)
