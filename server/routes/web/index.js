@@ -5,7 +5,6 @@ module.exports = app => {
     const Article = mongoose.model('Article')
     const Hero = mongoose.model('Hero')
 
-
     //导入新闻数据
     //⬇只是为了偷懒，模拟的，正式不应该这样
     //初始化路由
@@ -152,7 +151,14 @@ module.exports = app => {
         res.send(data)
     })
 
-
+    //英雄详情
+    router.get('/heroes/:id', async (req, res) => {
+        const data = await Hero
+            .findById(req.params.id)
+            .populate('categories items1 items2 partners.hero')
+            .lean()
+        res.send(data)
+    })
 
 
     app.use('/web/api', router)
